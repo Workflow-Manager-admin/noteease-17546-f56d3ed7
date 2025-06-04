@@ -154,7 +154,7 @@
         on:select={handleCategorySelect} 
       />
       
-      {#each $categories as category}
+      {#each $categories as category (category)}
         <CategoryChip 
           {category} 
           selected={selectedCategory === category} 
