@@ -143,7 +143,7 @@
             value={noteForm.category}
           >
             <option value="">No category</option>
-            {#each $categories as category}
+            {#each $categories as category (category)}
               <option value={category}>{category}</option>
             {/each}
             <option value="new">+ Add new category</option>
