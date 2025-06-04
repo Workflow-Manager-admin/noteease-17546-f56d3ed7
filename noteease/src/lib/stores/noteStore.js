@@ -59,7 +59,7 @@ const categories = derived(
 );
 
 // Helper function to save notes to localStorage
-const saveToLocalStorage = (notes) => {
+export const saveToLocalStorage = (notes) => {
   if (typeof localStorage !== 'undefined') {
     localStorage.setItem('notes', JSON.stringify(notes));
   }
