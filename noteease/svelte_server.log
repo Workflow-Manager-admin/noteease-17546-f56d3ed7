@@ -2,3 +2,9 @@
 > svelte@0.0.1 dev
 > vite dev --host 0.0.0.0 --cors --port 3000
 
+11:13:15 AM [vite] (client) Forced re-optimization of dependencies
+
+  VITE v6.2.1  ready in 1096 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: http://172.17.0.2:3000/
