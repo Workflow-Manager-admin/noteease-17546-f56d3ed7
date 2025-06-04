@@ -156,7 +156,7 @@
   <section class="notes-section">
     {#if $filteredNotes.length > 0}
       <div class="notes-grid">
-        {#each $filteredNotes as note (note.id)}
+        {#each $filteredNotes as note, index (note.id || index)}
           <NoteCard 
             {note} 
             on:edit={handleEditNote} 
