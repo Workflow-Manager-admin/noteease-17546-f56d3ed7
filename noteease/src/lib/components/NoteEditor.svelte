@@ -101,7 +101,7 @@
 <svelte:window on:keydown={handleKeydown}/>
 
 {#if isOpen}
-  <div class="modal-backdrop" on:click={handleBackdropClick}>
+  <div class="modal-backdrop" on:click={handleBackdropClick} on:keydown={handleKeydown} role="button" tabindex="0">
     <div class="modal-content" role="dialog" aria-labelledby="note-editor-title">
       <div class="modal-header">
         <h2 id="note-editor-title">{note ? 'Edit Note' : 'Create Note'}</h2>
