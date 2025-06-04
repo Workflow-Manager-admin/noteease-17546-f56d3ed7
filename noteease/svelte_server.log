@@ -9,3 +9,4 @@
   ➜  Local:   http://localhost:3000/
   ➜  Network: http://172.17.0.2:3000/
 11:19:10 AM [vite] (client) page reload src/app.html
+Files prefixed with + are reserved (saw src/routes/+page.svelte.test.ts)
