@@ -6,7 +6,7 @@
    * and organize their personal notes with features for categorization and search.
    */
   import { onMount } from 'svelte';
-  import { notesApi, filteredNotes, categories } from '$lib/stores/noteStore';
+  import { notesApi, filteredNotes, categories, saveToLocalStorage } from '$lib/stores/noteStore';
   import SearchBar from '$lib/components/SearchBar.svelte';
   import CategoryChip from '$lib/components/CategoryChip.svelte';
   import NoteCard from '$lib/components/NoteCard.svelte';
@@ -91,28 +91,39 @@
     const unsubscribe = notesApi.subscribe(notes => {
       // If there are no notes, add default notes
       if (notes.length === 0) {
+        // Create notes with guaranteed unique IDs
+        const now = Date.now();
+        
         const defaultNotes = [
           {
+            id: `${now}-1`,
             title: "Welcome to NoteEase",
             content: "This is a simple note-taking application. You can create, edit, delete, and search for notes. Try it out!",
-            category: "Important"
+            category: "Important",
+            createdAt: new Date().toISOString()
           },
           {
+            id: `${now}-2`,
             title: "How to use categories",
-            content: "Assign categories to your notes for better organization. Click on category chips to filter notes by category.",
-            category: "Tips"
+            content: "Assign categories to your notes for better organization. Click on category chips at the top to filter notes by category.",
+            category: "Tips",
+            createdAt: new Date(now + 1000).toISOString()
           },
           {
+            id: `${now}-3`,
             title: "Search functionality",
             content: "Use the search bar at the top to find notes by title or content. The results update as you type.",
-            category: "Tips"
+            category: "Tips",
+            createdAt: new Date(now + 2000).toISOString()
           }
         ];
         
-        // Add default notes to the store
-        defaultNotes.forEach(note => {
-          notesApi.addNote(note);
-        });
+        // Use direct store.update approach to maintain our custom IDs
+        notesApi.subscribe(currentNotes => {
+          const updatedNotes = [...currentNotes, ...defaultNotes];
+          saveToLocalStorage(updatedNotes);
+          return updatedNotes;
+        })();
       }
     });
     
@@ -156,7 +167,7 @@
   <section class="notes-section">
     {#if $filteredNotes.length > 0}
       <div class="notes-grid">
-        {#each $filteredNotes as note, index (note.id || index)}
+        {#each $filteredNotes as note, index (note.id || `note-${index}`)}
           <NoteCard 
             {note} 
             on:edit={handleEditNote} 
